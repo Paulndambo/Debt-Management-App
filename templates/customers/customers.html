@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5 class="card-title mb-0">CUSTOMERS LIST</h5>
+                            </div>
+                            <div class="col-6">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                   
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-lg" id="id_number" name="id_number" placeholder="ID Number" />
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <select class="form-control" id="kiosk" name="kiosk">
+                                                    {% for customer in customers %}
+                                                        <option value={{kiosk.}}>{{customer.gender}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <input type="submit" class="form-control btn btn-primary"
+                                                    value="Search">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="col-3">
+                                <a class="btn btn-info" href="{% url 'new-customer' %}" >New Customer</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID Number</th>
+                                <th>Phone Number</th>
+                                
+                                <th colspan="3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for customer in customers %}
+                            <tr>
+                                <td>{{customer.first_name}} {{customer.last_name}}</td>
+                                <td>{{customer.id_number}}</td>
+                                <td>{{customer.phone_number}}</td>
+                               
+                                <td>
+                                    <a href="{% url 'customer-detail' customer.id %}" class="p-2">
+                                        <span data-feather="eye" class="success"></span>
+                                    </a>
+                                
+                                    <a href="{% url 'update-customer' customer.id %}" class="p-2">
+                                        <span data-feather="edit" class="success"></span>
+                                    </a>
+                                
+                                    <a href="#" id="delete" class=""
+                                        data-toggle="modal" data-target="#DeleteModal">
+                                        <span data-feather="delete" class="success"></span>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+{% endblock content %}

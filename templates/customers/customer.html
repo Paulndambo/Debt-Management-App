@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <h3 class="card-title text-center mb-0">{{customer.name}}</h3>
+                        </div>
+                        <hr>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID Number</th>
+                                <th>Phone Number</th>
+                                <th>Gender</th>
+                                <th>Date of Birth</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{customer.first_name}} {{customer.last_name}}</td>
+                                <td>{{customer.id_number}}</td>
+                                <td>{{customer.phone_number}}</td>
+                                <td>{{customer.gender}}</td>
+                                <td>{{customer.date_of_birth}}</td>
+                               
+                                <td>
+                                    <a href="#" class="p-2">
+                                        <span data-feather="edit" class="success"></span>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-10">
+                                <h3 class="card-title text-center mb-0">Money Loans</h3>
+                            </div>
+                            
+                            <div class="col-2">
+                                <a href="{% url 'money-loans' customer.id %}" class="btn btn-outline-secondary mx-auto">
+                                    <span data-feather="arrow-up-right" class="success"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Amount</th>
+                                <th>Repaid</th>
+                                <th>Loan Date</th>
+                                <th>Repay By</th>
+                                <th>Interest</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for loan in money_loans %}
+                            <tr>
+                                <td>{{loan.id}}</td>
+                                <td>{{loan.amount_awarded}}</td>
+                                <td>{{loan.amount_repaid}}</td>
+                                <td>{{loan.date_awarded}}</td>
+                                <td>{{loan.expected_repay_date}}</td>
+                                <td>{{loan.interest_accrued}}</td>
+                                <td>{{loan.status}}</td>
+                                <td>
+                                    <a href="{% url 'money-loan-payments' loan.id %}" class="btn btn-info">Payments</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    
+
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-10">
+                                <h3 class="card-title text-center mb-0">Item Loans</h3>
+                            </div>
+                            
+                            <div class="col-2">
+                                <a href="{% url 'item-loans' customer.id %}" class="btn btn-outline-primary mx-auto">
+                                    <span data-feather="arrow-up-right" class="success"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Month</th>
+                                <th>Amount</th>
+                                <th>Amount Repaid</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for loan in item_loans %}
+                            <tr>
+                                <td>{{loan.id}}</td>
+                                <td>{{loan.month}}</td>
+                                <td>{{loan.amount_borrowed}}</td>
+                                <td>{{loan.amount_repaid}}</td>
+                                <td>{{loan.status}}</td>
+                                <td>
+                                    <a href="{% url 'item-loan-payments' loan.id %}" class="btn btn-info">Payments</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+
+
+{% endblock content %}

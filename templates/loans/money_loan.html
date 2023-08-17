@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <h5 class="card-title mb-0">LOAN DETAIL</h5>
+                        </div>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Amount</th>
+                                <th>Paid</th>
+                                <th>Date Awarded</th>
+                                
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>{{loan.id}}</td>
+                                <td>{{loan.amount_awarded}}</td>
+                                <td>{{loan.amount_repaid}}</td>
+                                <td>{{loan.date_awarded}}</td>
+                                
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            
+                            <h5 class="card-title mb-0">LOAN REPAY DETAIL</h5>
+                            
+                        </div>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>Amount To Pay</th>
+                                <th>Repay By</th>
+                                <th>Interest</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                               <td>{{loan.amount_to_repay}}</td>
+                                <td>{{loan.expected_repay_date}}</td>
+                                <td>{{loan.interest_accrued}}</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-sm-12 col-md-6 col-md-12">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 class="card-title">LOAN PAYMENTS</h3>
+                            </div>
+
+                            {% if loan.amount_repaid == loan.amount_to_repay %}
+
+                            {% else %}
+                            <div class="col-6">
+                               <a href="{% url 'pay-money-loan' loan.customer.id loan.id %}" class="btn btn-success">Make Payment</a>
+                            </div>
+
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Amount</th>
+                                <th>Paid At.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for payment in loan_payments %}
+                            <tr>
+                                <td>{{payment.id}}</td>
+                                
+                                <td>{{payment.amount}}</td>
+                                <td>{{payment.created}}</td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+{% endblock content %}

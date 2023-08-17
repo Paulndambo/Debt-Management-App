@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="card-title mb-0">LOAN PAYMENTS</h5>
+                            </div>
+                            <div class="col-7">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                   
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-lg" id="id_number" name="id_number" placeholder="ID Number" />
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <select class="form-control" id="kiosk" name="kiosk">
+                                                    
+                                                        <option>Paid</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <input type="submit" class="form-control btn btn-primary"
+                                                    value="Search">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>Loan</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Paid At.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for payment in loans_payments %}
+                            <tr>
+                                <td>{{payment.loan}}</td>
+                                <td>{{payment.customer}}</td>
+                                <td>{{payment.amount}}</td>
+                                <td>{{payment.created}}</td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+{% endblock content %}

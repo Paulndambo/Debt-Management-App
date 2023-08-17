@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-5">
+                                <h5 class="card-title mb-0">LOAN APPLICATIONS</h5>
+                            </div>
+                            <div class="col-7">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                   
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-lg" id="id_number" name="id_number" placeholder="ID Number" />
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <select class="form-control" id="kiosk" name="kiosk">
+                                                    
+                                                        <option>Paid</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <input type="submit" class="form-control btn btn-primary"
+                                                    value="Search">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Amount Applied</th>
+                                <th>Status</th>
+                                <th>Paid At.</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for loan_application in loan_applications %}
+                            <tr>
+                                <td>{{loan_application.customer}}</td>
+                                <td>{{loan_application.amount_applied}}</td>
+                                <td>{{loan_application.status}}</td>
+                                <td>{{loan_application.created}}</td>
+                                {% if loan_application.status == "Pending" %}
+                                <td>
+                                    <a href="{% url 'approve-loan-application' loan_application.id %}" class="btn btn-success">Approve</a>
+                                    <a href="{% url 'decline-loan-application' loan_application.id %}" class="btn btn-danger">Decline</a>
+                                </td>
+                                {% elif loan_application.status == "Declined" %}
+                                <td>
+                                    <a href="{% url 'resubmit-loan-application' loan_application.id %}" class="btn btn-warning">Submit Again!</a>
+                                </td>
+                                {% endif %}
+                                
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+{% endblock content %}
