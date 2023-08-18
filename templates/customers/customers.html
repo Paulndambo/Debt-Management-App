@@ -24,10 +24,10 @@
                                         </div>
                                         <div class="col-5">
                                             <div class="form-group">
-                                                <select class="form-control" id="kiosk" name="kiosk">
-                                                    {% for customer in customers %}
-                                                        <option value={{customer.gender}}>{{customer.gender}}</option>
-                                                    {% endfor %}
+                                                <select class="form-control" id="gender" name="gender">
+                                                    
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -75,12 +75,7 @@
                                     <a href="{% url 'update-customer' customer.id %}" class="p-2">
                                         <span data-feather="edit" class="success"></span>
                                     </a>
-                                
-                                    <a href="#" id="delete" class=""
-                                        data-toggle="modal" data-target="#DeleteModal">
-                                        <span data-feather="delete" class="success"></span>
-                                    </a>
-
+                            
                                 </td>
 
                             </tr>
