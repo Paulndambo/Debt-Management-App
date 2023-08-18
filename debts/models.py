@@ -15,6 +15,10 @@ class LoanApplication(AbstractBaseModel):
     customer = models.ForeignKey("users.Customer", on_delete=models.CASCADE, related_name="loanapplications")
     amount_applied = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=255, choices=LOAN_APPLICATION_STATUS, default="Pending")
+    disburse = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse("loan-applications")
 
 
 class CustomerItemLoan(AbstractBaseModel):
@@ -43,8 +47,8 @@ class CustomerMoneyLoan(AbstractBaseModel):
     amount_awarded = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     amount_repaid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     date_awarded = models.DateField()
-    expected_repay_date = models.DateField()
-    status = models.CharField(max_length=255, choices=LOAN_STATUS_CHOICES, null=True)
+    expected_repay_date = models.DateField(null=True)
+    status = models.CharField(max_length=255, choices=LOAN_STATUS_CHOICES, default="Paying")
     interest_accrued = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
@@ -53,6 +57,7 @@ class CustomerMoneyLoan(AbstractBaseModel):
 
     def amount_to_repay(self):
         return self.amount_awarded + self.interest_accrued
+
 
 
 

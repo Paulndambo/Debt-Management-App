@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
+from django.views.generic import UpdateView, CreateView, DeleteView
+from datetime import datetime
 from decimal import Decimal
 from debts.models import (
     CustomerItemLoan, CustomerMoneyLoan, ItemBorrowed, 
     MoneyLoanPayment, ItemLoanPayment, LoanApplication
 )
 
-from .forms import MoneyLoanPaymentForm
+from .forms import MoneyLoanPaymentForm, LoanApplicationForm
 from users.models import Customer
+
+date_today = datetime.now().date()
 
 # Create your views here.
 def loans(request):
@@ -35,6 +39,47 @@ def approve_loan_application(request, pk):
     loan_application.save()
     return redirect("loan-applications")
 
+
+def disburse_loan_application(request, pk):
+    loan_application = LoanApplication.objects.get(id=pk)
+
+    if request.method == "POST":
+        amount_awarded = Decimal(request.POST.get("amount_awarded"))
+        customer = loan_application.customer
+        interest_percent = Decimal(request.POST.get("interest"))
+
+        interest_accrued = (interest_percent / 100) * amount_awarded
+        date_awarded = request.POST.get("date_awarded")
+        expected_repay_date = request.POST.get("expected_repay_date")
+
+        loan = CustomerMoneyLoan(
+            customer=customer,
+            amount_awarded=amount_awarded,
+            interest_accrued=interest_accrued,
+            date_awarded=date_awarded,
+            expected_repay_date=expected_repay_date,
+            status="Paying",
+            amount_repaid=0
+        )
+        loan.save()
+
+        loan_application.disburse = True
+        loan_application.save()
+
+        return redirect(reverse("money-loan-detail", kwargs={"loan_id": loan.id}))
+    
+    context = {
+        "loan_application": loan_application
+    }
+
+    return render(request, "loans/disburse_loan.html", context)
+
+
+class LoanApplyView(CreateView):
+    model = LoanApplication
+    form_class = LoanApplicationForm
+    template_name = "loans/apply_loan.html"
+    
 
 def decline_loan_application(request, pk):
     loan_application = LoanApplication.objects.get(id=pk)

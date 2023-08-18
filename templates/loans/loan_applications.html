@@ -11,27 +11,18 @@
                             <div class="col-5">
                                 <h5 class="card-title mb-0">LOAN APPLICATIONS</h5>
                             </div>
-                            <div class="col-7">
+                            <div class="col-5">
                                 <form method="POST">
                                     {% csrf_token %}
                                     <div class="row">
                    
-                                        <div class="col-4">
+                                        <div class="col-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="id_number" name="id_number" placeholder="ID Number" />
+                                                <input type="text" class="form-control" id="id_number" name="id_number" placeholder="ID Number" />
                                             </div>
                                         </div>
+                                        
                                         <div class="col-5">
-                                            <div class="form-group">
-                                                <select class="form-control" id="kiosk" name="kiosk">
-                                                    
-                                                        <option>Paid</option>
-                                                    
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-3">
                                             <div class="form-group">
                                                 <input type="submit" class="form-control btn btn-primary"
                                                     value="Search">
@@ -40,6 +31,9 @@
                                     </div>
 
                                 </form>
+                            </div>
+                            <div class="col-2">
+                                <a href="{% url 'apply-loan' %}" class="btn btn-success">Apply Loan</a>
                             </div>
                         </div>
                     </div>
@@ -68,6 +62,10 @@
                                 {% elif loan_application.status == "Declined" %}
                                 <td>
                                     <a href="{% url 'resubmit-loan-application' loan_application.id %}" class="btn btn-warning">Submit Again!</a>
+                                </td>
+                                {% elif loan_application.status == "Approved" and loan_application.disburse == False %}
+                                <td>
+                                    <a href="{% url 'disburse-loan' loan_application.id %}" class="btn btn-success">Disburse!</a>
                                 </td>
                                 {% endif %}
                                 
