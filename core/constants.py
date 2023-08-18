@@ -20,6 +20,16 @@ LOAN_STATUS_CHOICES = (
     ("Reviewing", "Reviewing"),
 )
 
+YEARS_CHOICE_LIST = (
+    ("2023", "2023"),
+    ("2024", "2024"),
+    ("2025", "2025"),
+    ("2026", "2026"),
+    ("2027", "2027"),
+    ("2028", "2028"),
+    ("2029", "2029"),
+)
+
 def get_loan_status(amount_borrowed, amount_paid):
     loan_status = ''
     if amount_borrowed == amount_paid:

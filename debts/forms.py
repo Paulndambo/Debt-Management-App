@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import MoneyLoanPayment, ItemLoanPayment, LoanApplication
+from .models import MoneyLoanPayment, ItemLoanPayment, LoanApplication, CustomerItemLoan, ItemBorrowed
 
 class MoneyLoanPaymentForm(forms.ModelForm):
     class Meta:
@@ -17,3 +17,4 @@ class LoanApplicationForm(forms.ModelForm):
             'customer': forms.Select(attrs={'class': 'form-control'}),
             'amount_applied': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+

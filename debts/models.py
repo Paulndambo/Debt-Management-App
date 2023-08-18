@@ -1,6 +1,6 @@
 from django.db import models
 from core.models import AbstractBaseModel
-from core.constants import MONTHS_LIST, LOAN_STATUS_CHOICES, get_loan_status
+from core.constants import MONTHS_LIST, LOAN_STATUS_CHOICES, get_loan_status, YEARS_CHOICE_LIST
 from django.urls import reverse
 
 # Create your models here.
@@ -23,7 +23,6 @@ class LoanApplication(AbstractBaseModel):
 
 class CustomerItemLoan(AbstractBaseModel):
     customer = models.ForeignKey("users.Customer", on_delete=models.CASCADE, related_name="itemloans")
-    month = models.CharField(max_length=255, choices=MONTHS_LIST)
     amount_borrowed = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     amount_repaid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=255, choices=LOAN_STATUS_CHOICES, null=True)
@@ -32,11 +31,19 @@ class CustomerItemLoan(AbstractBaseModel):
     def __str__(self):
         return f"{self.customer.first_name} {self.customer.last_name}"
 
+    def current_year(self):
+        return self.created.date().year
+
+    def balance(self):
+        return self.amount_borrowed - self.amount_repaid
+
 
 class ItemBorrowed(AbstractBaseModel):
     customer = models.ForeignKey("users.Customer", on_delete=models.CASCADE, related_name="itemsborrowed")
     item = models.CharField(max_length=255)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    month = models.CharField(max_length=255, null=True)
+    year = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return f"{self.customer.first_name} {self.customer.last_name}"

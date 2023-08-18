@@ -86,7 +86,7 @@
                                 <td>{{loan.interest_accrued}}</td>
                                 <td>{{loan.status}}</td>
                                 <td>
-                                    <a href="{% url 'money-loan-payments' loan.id %}" class="btn btn-info">Payments</a>
+                                    <a href="{% url 'money-loan-detail' loan.id %}" class="btn btn-info">Detail</a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -103,10 +103,14 @@
                 <div class="card flex-fill">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-8">
                                 <h3 class="card-title text-center mb-0">Item Loans</h3>
                             </div>
-                            
+                            <div class="col-2">
+                                <a href="{% url 'new-item-loan' customer.id %}" class="btn btn-outline-primary">
+                                    <span data-feather="plus" class="success"></span>
+                                </a>
+                            </div>
                             <div class="col-2">
                                 <a href="{% url 'item-loans' customer.id %}" class="btn btn-outline-primary mx-auto">
                                     <span data-feather="arrow-up-right" class="success"></span>
@@ -119,7 +123,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Month</th>
+                                <th>Current Year</th>
                                 <th>Amount</th>
                                 <th>Amount Repaid</th>
                                 <th>Status</th>
@@ -130,12 +134,12 @@
                             {% for loan in item_loans %}
                             <tr>
                                 <td>{{loan.id}}</td>
-                                <td>{{loan.month}}</td>
+                                <td>{{loan.current_year}}</td>
                                 <td>{{loan.amount_borrowed}}</td>
                                 <td>{{loan.amount_repaid}}</td>
-                                <td>{{loan.status}}</td>
+                                <td>Active</td>
                                 <td>
-                                    <a href="{% url 'item-loan-payments' loan.id %}" class="btn btn-info">Payments</a>
+                                    <a href="{% url 'item-loan-detail' loan.id %}" class="btn btn-info">Details</a>
                                 </td>
                             </tr>
                             {% endfor %}

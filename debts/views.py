@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, DeleteView
 from datetime import datetime
+import calendar
 from decimal import Decimal
 from debts.models import (
     CustomerItemLoan, CustomerMoneyLoan, ItemBorrowed, 
@@ -111,6 +112,7 @@ def item_loan_payments(request, loan_id=None):
         loan = CustomerItemLoan.objects.get(id=loan_id)
         customer_id = loan.customer.id
 
+
     context = {
         "loan_payments": items_loan_payments,
         "loan_id": loan_id,
@@ -124,10 +126,12 @@ def customer_item_loan_detail(request, loan_id=None):
 
     if loan_id:
         item_loan_payments = ItemLoanPayment.objects.filter(loan__id=loan_id).order_by("-created")
+        borrowed_items = ItemBorrowed.objects.filter(customer=loan.customer)
 
     context = {
         "loan": loan,
-        "loan_payments": item_loan_payments
+        "loan_payments": item_loan_payments,
+        "borrowed_items": borrowed_items
     }
     return render(request, "loans/item_loan.html", context)
 
@@ -158,6 +162,50 @@ def pay_item_loan(request, customer_id=None, loan_id=None):
     return render(request, "loans/payments/pay_item_loan.html", context)
 
 
+def new_item_loan(request, customer_id=None):
+    try:
+        customer = Customer.objects.get(id=customer_id)
+        loan = CustomerItemLoan(
+            customer=customer,
+            amount_borrowed=0,
+            amount_repaid=0
+        )
+        loan.save()
+        return redirect(reverse("customer-detail", kwargs={"pk": customer_id}))
+    except Exception as e:
+        raise e
+
+def new_loan_item(request, loan_id=None, customer_id=None):
+    try:
+        customer = Customer.objects.get(id=customer_id)
+        loan = CustomerItemLoan.objects.get(id=loan_id)
+
+        if request.method == "POST":
+            item = request.POST.get("item")
+            unit_price = Decimal(request.POST.get("unit_price"))
+
+            year = str(date_today.year)
+            month = calendar.month_name[date_today.month]
+
+            borrowed_item = ItemBorrowed(
+                customer=customer,
+                item=item,
+                unit_price=unit_price,
+                year=year,
+                month=month
+            )
+
+            borrowed_item.save()
+
+            loan.amount_borrowed += unit_price
+            loan.save()
+            
+            return redirect(reverse("item-loan-detail", kwargs={"loan_id": loan_id}))
+
+    except Exception as e:
+        raise e
+
+    return render(request, "loans/item_loans/loan_item.html")
 
 def borrowed_items(request):
     borrowed_items = ItemBorrowed.objects.all().order_by("-created")

@@ -4,7 +4,8 @@ from debts.views import (
     loans, customer_item_loans, customer_money_loans, borrowed_items,
     money_loan_payments, item_loan_payments, loan_applications, customer_money_loan_detail,
     customer_item_loan_detail, pay_money_loan, pay_item_loan, resubmit_loan_application,
-    decline_loan_application, approve_loan_application, disburse_loan_application, LoanApplyView
+    decline_loan_application, approve_loan_application, disburse_loan_application, LoanApplyView,
+    new_item_loan, new_loan_item
 )
 
 urlpatterns = [
@@ -28,6 +29,8 @@ urlpatterns = [
     path("item-loan-payments/<int:loan_id>/", item_loan_payments, name="item-loan-payments"),
     path("item-loan-detail/<int:loan_id>/", customer_item_loan_detail, name="item-loan-detail"),
     path("pay-item-loan/<int:customer_id>/<int:loan_id>/", pay_item_loan, name="pay-item-loan"),
+    path("new-loan-item/<int:loan_id>/<int:customer_id>/", new_loan_item, name="new-loan-item"),
+    path("new-item-loan/<int:customer_id>/", new_item_loan, name="new-item-loan"),
 
 
     path("loan-applications/", loan_applications, name="loan-applications"),
