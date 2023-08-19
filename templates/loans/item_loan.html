@@ -63,6 +63,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Item</th>
+                                <th>Quantity</th>
                                 <th>Price</th>
                                 
                             </tr>
@@ -73,7 +74,8 @@
                             <tr>
                                 <td>{{item.id}}</td>
                                 <td>{{item.item}}</td>
-                                <td>{{item.unit_price}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.loan_amount}}</td>
                                 
                             </tr>
                             {% endfor %}
@@ -88,11 +90,11 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                <h3 class="card-title">LOAN PAYMENTS</h3>
+                                <h3 class="card-title">PAYMENTS</h3>
                             </div>
 
                             <div class="col-6">
-                                <a href="{% url 'pay-item-loan' loan.customer.id loan.id %}" class="btn btn-success">Make Payment</a>
+                                <a href="{% url 'pay-item-loan' loan.customer.id loan.id %}" class="btn btn-success">Pay Loan</a>
                              </div>
                             
                         </div>

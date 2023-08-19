@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-4">
+                                <h5 class="card-title mb-0">ITEMS LIST</h5>
+                            </div>
+                            <div class="col-5">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                   
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Item Name ..." />
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <input type="submit" class="form-control btn btn-primary"
+                                                    value="Search">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="col-3">
+                                <a href="{% url 'new-item' %}" class="btn btn-info">New Item</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Unit Price</th>
+                                <th>Stock</th>
+                                <th>Unit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for item in items %}
+                            <tr>
+                                <td>{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.unit_price}}</td>
+                                <td>{{item.stock}}</td>
+                                <td>{{item.unit}}</td>
+                                <td>
+                                    <a href="{% url 'restock' item.id %}" class="btn btn-info">Restock</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+{% endblock content %}

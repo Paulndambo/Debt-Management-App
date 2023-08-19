@@ -30,6 +30,15 @@ YEARS_CHOICE_LIST = (
     ("2029", "2029"),
 )
 
+UNIT_CHOICES = (
+    ("Kg", "Kg"),
+    ("Pieces", "Pieces"),
+    ("Boxes", "Boxes"),
+    ("Cartons", "Cartons"),
+    ("Metres", "Metres"),
+    ("Litres", "Litres"),
+)
+
 def get_loan_status(amount_borrowed, amount_paid):
     loan_status = ''
     if amount_borrowed == amount_paid:

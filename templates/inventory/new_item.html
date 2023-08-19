@@ -13,16 +13,19 @@
                                    <!-- <img src="..." class="rounded" alt="...">-->
                                 </div>
                                 <div class="card-body">
-                                    <h3 class="h3 text-center">Loan An Item</h3>
+                                    <h3 class="h3 text-center">New Stock Item</h3>
                                     <hr />
                                     <div class="m-sm-4">
                                         <form action="" method="POST">
                                             {% csrf_token %}
                                             
-                                            {{form.as_p}}
-                                            
+                                            <div class="mb-3">
+                                                {{form.as_p}}
+                                                
+                                            </div>
+     
                                             <div class="text-center mt-3">
-                                                <button type="submit" class="btn btn-lg btn-secondary">Record Loan Item</button>
+                                                <button type="submit" class="btn btn-lg btn-primary">Save Item</button>
                                             </div>
 
                                         </form>
@@ -36,4 +39,4 @@
             </div>
         </main>
         <!-- CSS only -->
-{% endblock content %}
+ {% endblock content %}

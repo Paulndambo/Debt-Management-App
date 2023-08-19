@@ -8,8 +8,9 @@ from debts.models import (
     CustomerItemLoan, CustomerMoneyLoan, ItemBorrowed, 
     MoneyLoanPayment, ItemLoanPayment, LoanApplication
 )
+from core.models import Inventory
 
-from .forms import MoneyLoanPaymentForm, LoanApplicationForm
+from .forms import MoneyLoanPaymentForm, LoanApplicationForm, ItemBorrowedForm
 from users.models import Customer
 
 date_today = datetime.now().date()
@@ -176,36 +177,46 @@ def new_item_loan(request, customer_id=None):
         raise e
 
 def new_loan_item(request, loan_id=None, customer_id=None):
+    form = ItemBorrowedForm(request.POST or None)
     try:
         customer = Customer.objects.get(id=customer_id)
         loan = CustomerItemLoan.objects.get(id=loan_id)
 
         if request.method == "POST":
-            item = request.POST.get("item")
-            unit_price = Decimal(request.POST.get("unit_price"))
+            item_id = int(request.POST.get("item"))
+            quantity = Decimal(request.POST.get("quantity"))
 
             year = str(date_today.year)
             month = calendar.month_name[date_today.month]
 
+            item = Inventory.objects.get(id=item_id)
+
+
+            print(f"Item: {item.name}, Quantity: {quantity}")
+
             borrowed_item = ItemBorrowed(
                 customer=customer,
                 item=item,
-                unit_price=unit_price,
+                quantity=quantity,
                 year=year,
                 month=month
             )
 
             borrowed_item.save()
+            borrowed_amount = item.unit_price * quantity
 
-            loan.amount_borrowed += unit_price
+            loan.amount_borrowed += borrowed_amount
             loan.save()
+
+            item.stock -= quantity
+            item.save()
             
             return redirect(reverse("item-loan-detail", kwargs={"loan_id": loan_id}))
 
     except Exception as e:
         raise e
 
-    return render(request, "loans/item_loans/loan_item.html")
+    return render(request, "loans/item_loans/loan_item.html", {"form": form})
 
 def borrowed_items(request):
     borrowed_items = ItemBorrowed.objects.all().order_by("-created")

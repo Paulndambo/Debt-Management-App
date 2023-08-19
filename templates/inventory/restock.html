@@ -13,16 +13,22 @@
                                    <!-- <img src="..." class="rounded" alt="...">-->
                                 </div>
                                 <div class="card-body">
-                                    <h3 class="h3 text-center">Loan An Item</h3>
+                                    <h3 class="h3 text-center">Restock Item</h3>
                                     <hr />
                                     <div class="m-sm-4">
                                         <form action="" method="POST">
                                             {% csrf_token %}
+                                            <p class="text-center">Item: <b>{{inventory.name}}</b></p>
                                             
-                                            {{form.as_p}}
+                                            <div class="mb-3">
+                                                <label class="form-label">Amount</label>
+                                                <input class="form-control form-control-lg" type="number" id="amount"
+                                                    name="amount" placeholder="Enter Amount" />
+                                                
+                                            </div>
                                             
                                             <div class="text-center mt-3">
-                                                <button type="submit" class="btn btn-lg btn-secondary">Record Loan Item</button>
+                                                <button type="submit" class="btn btn-lg btn-secondary">Restock Item</button>
                                             </div>
 
                                         </form>

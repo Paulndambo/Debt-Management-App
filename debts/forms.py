@@ -18,3 +18,13 @@ class LoanApplicationForm(forms.ModelForm):
             'amount_applied': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
+
+class ItemBorrowedForm(forms.ModelForm):
+    class Meta:
+        model = ItemBorrowed
+        fields = ["item", "quantity"]
+
+        widgets = {
+            'item': forms.Select(attrs={'class': 'form-control'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
