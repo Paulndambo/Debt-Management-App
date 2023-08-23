@@ -50,6 +50,8 @@
                                 <th>Customer</th>
                                 <th>Item</th>
                                 <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
                                 <th>Borrowed At.</th>
                                 
                             </tr>
@@ -60,7 +62,9 @@
                             <tr>
                                 <td>{{borrowed_item.customer}}</td>
                                 <td>{{borrowed_item.item}}</td>
-                                <td>{{borrowed_item.unit_price}}</td>
+                                <td>{{borrowed_item.item.unit_price}}</td>
+                                <td>{{borrowed_item.quantity}}</td>
+                                <td>{{borrowed_item.loan_amount}}</td>
                                 <td>{{borrowed_item.created}}</td>
                                 
                             </tr>
