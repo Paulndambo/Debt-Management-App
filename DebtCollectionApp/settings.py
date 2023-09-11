@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'users',
     'core',
     'debts',
+    'lipalater',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"

@@ -29,13 +29,13 @@
         #loans-menu{
             color: gray;
         }
-        #loans-menu li, #items-loans-menu li, #money-loans li, #savings-menu li, #meri-go-round-menu li, #checkin-menu li, #users-menu li{
+        #loans-menu li, #items-loans-menu li, #lipalater li, #money-loans li, #savings-menu li, #meri-go-round-menu li, #checkin-menu li, #users-menu li{
             text-decoration: none;
             list-style-type: none;
             font-size: 15px;
             padding-bottom: 10px;
         }
-        #loans-menu li a, #items-loans-menu li a, #money-loans li a, #savings-menu li a, #meri-go-round-menu li a, #checkin-menu li a, #users-menu li a{
+        #loans-menu li a, #items-loans-menu li a, #lipalater li a, #money-loans li a, #savings-menu li a, #meri-go-round-menu li a, #checkin-menu li a, #users-menu li a{
             color: rgba(255, 255, 255, 0.603);
         }
         a:hover, a:active, a:visited, a:link{
@@ -93,6 +93,20 @@
                                 <li class=""><a href="{% url 'item-loans' %}">Loans</a></li>
                                 <li class=""><a href="{% url 'borrowed-items' %}">Loaned Items</a></li>
                                 <li class=""><a href="{% url 'item-loan-payments' %}">Loan Payments</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link dropdown-toggle" href="" data-bs-toggle="collapse", data-bs-target="#lipalater">
+                            <i class="align-middle" data-feather="dollar-sign"></i> <span
+                                class="align-middle">Lipa PolePole</span>
+                        </a>
+                        <div class="loan-menu">
+                            <ul class="submenu collapse" id="lipalater" data-bs-parent="#sidebar-menu" >
+                                <li class=""><a href="{% url 'lipa-polepole-loans' %}">Loans</a></li>
+                                <li class=""><a href="#">Loaned Items</a></li>
+                                <li class=""><a href="#">Loan Payments</a></li>
                             </ul>
                         </div>
                     </li>
