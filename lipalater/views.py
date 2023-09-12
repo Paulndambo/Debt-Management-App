@@ -1,7 +1,8 @@
 from django.shortcuts import render
-
+from django.views.generic import CreateView
 from lipalater.models import LipaLaterLoan, LipaLaterLoanPremium, MpesaTransaction
 from users.models import Customer
+from lipalater.forms import LipaLaterLoanForm
 # Create your views here.
 def lipalater_loans(request):
     loans = LipaLaterLoan.objects.all()
@@ -10,17 +11,19 @@ def lipalater_loans(request):
     }
     return render(request, "lipalater/lipalater_loans.html", context)
 
-def new_lipa_later_loan(request, customer_id=None):
-    customer = Customer.objects.get(id=customer)
+class NewLipaLateLoanView(CreateView):
+    model = LipaLaterLoan
+    form_class = LipaLaterLoanForm
+    template_name = "lipalater/new_loan.html"
 
-    if request.method == "POST":
-        pass
-
-    context = {
-        "customer": customer
-    }
+    def post(self, request, *args, **kwargs):
         
-    return render(request, "lipalater/new_loan.html", context)
+        customer = request.POST.get("customer")
+        item = request.POST.get("item")
+
+        print(f"Customer: {customer}, Item: {item}")
+        
+        return super().post(request, *args, **kwargs)
 
 
 def premiums(request):

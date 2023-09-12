@@ -1,5 +1,6 @@
 from django.db import models
 from core.models import AbstractBaseModel
+from django.urls import reverse
 from core.constants import LOAN_STATUS_CHOICES
 # Create your models here.
 PREMIUM_STATUS_CHOICES = (
@@ -17,6 +18,9 @@ class LipaLaterLoan(AbstractBaseModel):
 
     def __str__(self):
         return self.item.name
+
+    def get_absolute_url(self):
+        return reverse("lipa-polepole-loans")
 
 
 class LipaLaterLoanPremium(AbstractBaseModel):
