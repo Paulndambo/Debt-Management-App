@@ -9,7 +9,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-4">
-                                <h5 class="card-title mb-0">Lipa PolePole Loans</h5>
+                                <h5 class="card-title mb-0">Loan Premiums</h5>
                             </div>
                             <div class="col-5">
                                 <form method="POST">
@@ -31,7 +31,7 @@
                                 </form>
                             </div>
                             <div class="col-3">
-                                <a href="{% url 'new-gas-loan' %}" class="btn btn-info">New Loan</a>
+                                <a href="#" class="btn btn-info">New Premium</a>
                             </div>
                         </div>
                     </div>
@@ -40,21 +40,23 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Customer</th>
-                                <th scope="col">Item</th>
+                                <th scope="col">Loan</th>
+                                <th scope="col">Amount</th>
                                 <th scope="col">Expected</th>
-                                <th scope="col">Paid</th>
+                                <th scope="col">Status</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            {% for loan in loans %}
+                            {% for premium in premiums %}
                             <tr>
-                                <td>{{loan.id}}</td>
-                                <td>{{loan.customer}}</td>
-                                <td>{{loan.item}}</td>
-                                <td>{{loan.expected_amount}}</td>
-                                <td>{{loan.amount_paid}}</td>
+                                <td>{{premium.id}}</td>
+                                <td>{{premium.loan.customer}}</td>
+                                <td>{{premium.loan}}</td>
+                                <td>{{premium.amount}}</td>
+                                <td>{{premium.expected_date}}</td>
+                                <td>{{premium.status}}</td>
                                 <td>
                                     <a href="#" class="btn btn-primary">Pay</a>
                                 </td>

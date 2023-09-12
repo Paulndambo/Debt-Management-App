@@ -8,12 +8,11 @@ PREMIUM_STATUS_CHOICES = (
     ("paid", "Paid"),
 )
 
-
 class LipaLaterLoan(AbstractBaseModel):
     customer = models.ForeignKey("users.Customer", on_delete=models.SET_NULL, null=True)
     item = models.ForeignKey("core.Inventory", on_delete=models.SET_NULL, null=True)
-    expected_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    expected_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=255, choices=LOAN_STATUS_CHOICES)
 
     def __str__(self):
