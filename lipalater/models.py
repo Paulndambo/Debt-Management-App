@@ -7,6 +7,8 @@ PREMIUM_STATUS_CHOICES = (
     ("unpaid", "Unpaid"),
     ("pending", "Pending"),
     ("paid", "Paid"),
+    ("paying", "Paying"),
+    ("reviewing", "Reviewing"),
 )
 
 class LipaLaterLoan(AbstractBaseModel):
@@ -16,8 +18,8 @@ class LipaLaterLoan(AbstractBaseModel):
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=255, choices=LOAN_STATUS_CHOICES)
 
-    def __str__(self):
-        return self.item.name
+    #def __str__(self):
+    #    return self.item.name
 
     def get_absolute_url(self):
         return reverse("lipa-polepole-loans")

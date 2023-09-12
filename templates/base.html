@@ -16,10 +16,11 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <title>LOANS APP | HOME</title>
-
+    
     <link href="{% static 'admin/css/app.css' %}" rel="stylesheet">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+  
     
 
     <style>
@@ -29,13 +30,13 @@
         #loans-menu{
             color: gray;
         }
-        #loans-menu li, #items-loans-menu li, #lipalater li, #money-loans li, #savings-menu li, #meri-go-round-menu li, #checkin-menu li, #users-menu li{
+        #loans-menu li, #items-loans-menu li, #lipalater li, #customers li, #money-loans li, #savings-menu li, #meri-go-round-menu li, #checkin-menu li, #users-menu li{
             text-decoration: none;
             list-style-type: none;
             font-size: 15px;
             padding-bottom: 10px;
         }
-        #loans-menu li a, #items-loans-menu li a, #lipalater li a, #money-loans li a, #savings-menu li a, #meri-go-round-menu li a, #checkin-menu li a, #users-menu li a{
+        #loans-menu li a, #items-loans-menu li a, #lipalater li a, #customers li a, #money-loans li a, #savings-menu li a, #meri-go-round-menu li a, #checkin-menu li a, #users-menu li a{
             color: rgba(255, 255, 255, 0.603);
         }
         a:hover, a:active, a:visited, a:link{
@@ -45,7 +46,6 @@
     
 </head>
 <body>
-  
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
@@ -63,10 +63,17 @@
 
                     
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{% url 'customers' %}">
+                        <a class="sidebar-link dropdown-toggle" href="" data-bs-toggle="collapse", data-bs-target="#customers">
                             <i class="align-middle" data-feather="users"></i> <span
                                 class="align-middle">Customers</span>
                         </a>
+                        <div class="loan-menu">
+                            <ul class="submenu collapse" id="customers" data-bs-parent="#sidebar-menu" >
+                                <li class=""><a href="{% url 'customers' %}">Customers List</a></li>
+                                <li class=""><a href="{% url 'new-customer' %}">New Customer</a></li>
+                             
+                            </ul>
+                        </div>
                     </li>
 
                     <li class="sidebar-item">
@@ -106,7 +113,7 @@
                             <ul class="submenu collapse" id="lipalater" data-bs-parent="#sidebar-menu" >
                                 <li class=""><a href="{% url 'lipa-polepole-loans' %}">Loans</a></li>
                                 <li class=""><a href="{% url 'premiums' %}">Premiums</a></li>
-                                <li class=""><a href="#">Loan Payments</a></li>
+                                <li class=""><a href="{% url 'new-gas-loan' %}">New Loan</a></li>
                             </ul>
                         </div>
                     </li>
@@ -141,7 +148,7 @@
                         </a>
                         <div class="loan-menu">
                             <ul class="submenu collapse " id="users-menu" data-bs-parent="#sidebar-menu" >
-                                <li class=""><a href="#">Admins</a></li>
+                                <li class=""><a href="{% url 'users' %}">Users</a></li>
                                 
                             </ul>
                         </div>
@@ -151,7 +158,7 @@
             </div>
         </nav>
 
-        <div class="main">
+        <div class="main container-fluid">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>

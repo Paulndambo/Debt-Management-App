@@ -13,7 +13,6 @@ from users.models import Customer
 from django.contrib.auth.decorators import login_required
 
 
-
 def user_login(request):
     form = LoginForm(request.POST or None)
 
@@ -44,7 +43,6 @@ def customers(request):
 
         if id_number:
             customers = customers.filter(id_number=id_number)
-        
 
     context = {
         "customers": customers
@@ -63,10 +61,11 @@ def customer_detail(request, pk=None):
     }
     return render(request, "customers/customer.html", context)
 
+
 class NewCustomerView(CreateView):
     model = Customer
     form_class = CustomerForm
-    #fields = "__all__"
+    # fields = "__all__"
     template_name = "customers/new_customer.html"
 
 
@@ -74,3 +73,11 @@ class UpdateCustomerView(UpdateView):
     model = Customer
     form_class = CustomerForm
     template_name = "customers/update_customer.html"
+
+
+def users(request):
+    users = User.objects.all()
+    context = {
+        "users": users
+    }
+    return render(request, "accounts/users.html", context)

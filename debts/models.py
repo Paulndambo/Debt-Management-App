@@ -49,8 +49,9 @@ class ItemBorrowed(AbstractBaseModel):
         return f"{self.customer.first_name} {self.customer.last_name}"
 
     def loan_amount(self):
-        amount = self.item.unit_price * self.quantity
-        return format(amount, ".2f")
+        if self.item:
+            amount = self.item.unit_price * self.quantity
+            return format(amount, ".2f")
 
 
 class CustomerMoneyLoan(AbstractBaseModel):

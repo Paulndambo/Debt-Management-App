@@ -9,18 +9,18 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-4">
-                                <h5 class="card-title mb-0">Lipa PolePole Loans</h5>
+                                <h5 class="card-title mb-0">Gas Loans</h5>
                             </div>
-                            <div class="col-5">
+                            <div class="col-7">
                                 <form method="POST">
                                     {% csrf_token %}
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-7">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" id="name" name="name" placeholder="loan Name ..." />
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-5">
                                             <div class="form-group">
                                                 <input type="submit" class="form-control btn btn-primary"
                                                     value="Search">
@@ -29,9 +29,6 @@
                                     </div>
 
                                 </form>
-                            </div>
-                            <div class="col-3">
-                                <a href="{% url 'new-gas-loan' %}" class="btn btn-info">New Loan</a>
                             </div>
                         </div>
                     </div>
@@ -43,7 +40,8 @@
                                 <th scope="col">Item</th>
                                 <th scope="col">Expected</th>
                                 <th scope="col">Paid</th>
-                                <th scope="col"></th>
+                                <th scope="col">Installment</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -55,9 +53,8 @@
                                 <td>{{loan.item}}</td>
                                 <td>{{loan.expected_amount}}</td>
                                 <td>{{loan.amount_paid}}</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary">Pay</a>
-                                </td>
+                                <td>{{loan.item.installment_amount}}</td>
+                                
                             </tr>
                             {% endfor %}
 
